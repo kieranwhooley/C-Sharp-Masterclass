@@ -4,7 +4,7 @@ namespace TicTacToeGame
 {
     class Program
     {
-        public static string player = "1";
+        public static string player = "1"; //player 1 starts
         public static string[] positions = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
         public static int numberOfTurns = 1;
         public static string symbol = "";
@@ -12,18 +12,18 @@ namespace TicTacToeGame
         public static bool isThereAWinner = false;
         static void Main(string[] args)
         {
-            playGame();
+            PlayGame();
         }
 
-        public static void playGame()
+        public static void PlayGame()
         {
             Console.Clear();
-            displayBoard();
-            makeChoice();
+            DisplayBoard();
+            MakeChoice();
             //Console.ReadKey();
         }
 
-        public static void makeChoice()
+        public static void MakeChoice()
         {
             
             //only alow 9 guesses as no more are possible and if someone has already won do not keepPlaying
@@ -40,7 +40,7 @@ namespace TicTacToeGame
                 //ask player to input chosen position
                 Console.WriteLine("\nPlayer {0} - Please enter your chosen position: ", player);
                 string positionEntered = Console.ReadLine();
-                //check input is a valid position on the board
+                //check input is a valid position on the board if it already taken or invalid input ask for input again
                 bool validInput = Array.Exists(positions, element => element == positionEntered);
 
                 if (validInput)
@@ -52,49 +52,49 @@ namespace TicTacToeGame
                     positions[locationInArray] = symbol;
 
                     //check to see if someone has won after entering the position in the board
-                    checkForAWinner();
+                    CheckForAWinner();
                     Console.Clear();
                     numberOfTurns++;
 
                     //only switch players if there is not a winner yet, if someone has won that player will be printed in displayWinner
                     if (!isThereAWinner)
                     {
-                        switchPlayer();
+                        SwitchPlayer();
                     }
-                    displayBoard();
+                    DisplayBoard();
                 } else
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Please enter a valid position!");
                     Console.ForegroundColor = ConsoleColor.White;
-                    displayBoard();
+                    DisplayBoard();
                 }
                 
             }
 
-            displayWinner();
+            DisplayWinner();
         }
 
-        public static void displayWinner()
+        public static void DisplayWinner()
         {
             if (isThereAWinner)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nThe winner is player {0}!", player);
                 Console.ForegroundColor = ConsoleColor.White;
-                playAgain();
+                PlayAgain();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("\nThe game was a draw!");
                 Console.ForegroundColor = ConsoleColor.White;
-                playAgain();
+                PlayAgain();
             }
         }
 
-        public static void playAgain()
+        public static void PlayAgain()
         {
             //ask user if they want to play again
             Console.WriteLine("Do you want to play again?\n" +
@@ -117,14 +117,14 @@ namespace TicTacToeGame
                 keepPlaying = true;
                 isThereAWinner = false;
                 player = "1";
-                playGame();
+                PlayGame();
             //otherwise close the console
             } else
             {
                 Environment.Exit(0);
             }
         }
-        public static void checkForAWinner()
+        public static void CheckForAWinner()
         {
             if (((positions[0] == "X") && (positions[1] == "X") && (positions[2] == "X")) || ((positions[3] == "X") && (positions[4] == "X") && (positions[5] == "X")) || ((positions[6] == "X") && (positions[7] == "X") && (positions[8] == "X")) || ((positions[0] == "X") && (positions[3] == "X") && (positions[6] == "X")) || ((positions[1] == "X") && (positions[4] == "X") && (positions[7] == "X")) || ((positions[2] == "X") && (positions[5] == "X") && (positions[8] == "X")) || ((positions[0] == "X") && (positions[4] == "X") && (positions[8] == "X")) || ((positions[2] == "X") && (positions[4] == "X") && (positions[6] == "X")))
             {
@@ -141,7 +141,7 @@ namespace TicTacToeGame
                 isThereAWinner = false;
             }
         }
-        public static void switchPlayer()
+        public static void SwitchPlayer()
         {
             if (player == "1")
             {
@@ -151,7 +151,7 @@ namespace TicTacToeGame
                 player = "1";
             }
         }
-        public static void displayBoard()
+        public static void DisplayBoard()
         {
             Console.WriteLine(""); 
             Console.WriteLine("     |     |     "); 
